@@ -27,6 +27,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\ReversedTransformer;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class OrderType extends AbstractResourceType
 {
@@ -73,6 +74,10 @@ final class OrderType extends AbstractResourceType
                     new NotBlank(['groups' => ['sylius']]),
                 ],
             ])
+            ->add('tokenValue', TextType::class, [
+                'constraints' => [],
+            ])
+
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
                 /** @var OrderInterface $order */
                 $order = $event->getData();
